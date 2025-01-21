@@ -1,0 +1,35 @@
+import random
+import matplotlib.pyplot as plt
+
+# Define scenarios with probabilities of doom
+scenarios = [
+    {"scenario": "Ignoring warning signs of zombie apocalypse", "doom_probability": 0.9},
+    {"scenario": "Attempting to befriend a wild pack of wolves", "doom_probability": 0.8},
+    {"scenario": "Staying in a haunted house overnight", "doom_probability": 0.7},
+    {"scenario": "Performing an ancient ritual from a cursed book", "doom_probability": 0.95},
+    {"scenario": "Refusing to wear a seatbelt because YOLO", "doom_probability": 0.6}
+]
+
+# Function to predict doom
+def predict_doom(scenario, attempts=1000):
+    doom_events = 0
+    for _ in range(attempts):
+        if random.random() < scenario['doom_probability']:
+            doom_events += 1
+    return doom_events / attempts
+
+# Predict doom for each scenario
+doom_probabilities = []
+for scenario in scenarios:
+    doom_probability = predict_doom(scenario)
+    doom_probabilities.append(doom_probability)
+    print(f"Scenario: {scenario['scenario']}")
+    print(f"Predicted Doom Probability: {doom_probability:.2f}\n")
+
+# Plotting the doom probabilities
+scenarios_text = [s['scenario'] for s in scenarios]
+plt.figure(figsize=(10, 6))
+plt.barh(scenarios_text, doom_probabilities, color='darkred')
+plt.xlabel('Probability of Doom')
+plt.title('Predicting the Inevitability of Doom')
+plt.show()
